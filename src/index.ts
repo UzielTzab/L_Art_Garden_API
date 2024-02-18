@@ -44,5 +44,5 @@ app.use('/api', cancelacionRoutes);
 const PORT = 3004;
 
 app.listen(PORT, () => {
-    console.log(`El servidor corriendo en el puerto${PORT}`);
+    console.log(`En el puerto${PORT}`);
 });
