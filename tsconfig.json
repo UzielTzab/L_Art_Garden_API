@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "types": ["node", "express", "cors", "mssql"],
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "strict": true,
+    "esModuleInterop": true
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}
