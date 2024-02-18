@@ -46,4 +46,5 @@ const PORT = 3004;
 app.listen(PORT, () => {
     console.log(`El servidor fue lanzado en el puerto ${PORT}`);
     console.log('Hello Uziel');
+    console.log('Text 3');
 });
