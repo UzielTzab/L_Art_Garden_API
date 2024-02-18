@@ -22,6 +22,7 @@ const pool = new sql.ConnectionPool(config);
 const poolConnect = pool.connect();
 
 poolConnect.then(() => {
+ 
   console.log("Conexión exitosa a SQL Server");
   
 });
