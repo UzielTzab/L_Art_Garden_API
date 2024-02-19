@@ -13,18 +13,18 @@ export const getAllUsers = async (req: Request, res: Response) => {
     }
 };
 
-// Obtener un usuario por ID
-export const getUserById = async (req: Request, res: Response) => {
-    const { id } = req.params;
+// Obtener un usuario por Corro y Contraseña
+export const getUserByEmailAndPassword = async (req: Request, res: Response) => {
+    const { correo_electronico, contraseña } = req.query;
     try {
         const poolito = await pool.connect();
         const result = await poolito.request()
-            .input('id', id)
-            .query('SELECT * FROM Usuario WHERE id_Usuario = @id');
+            .input('correo', correo_electronico)
+            .input('contrasena', contraseña)
+            .query('SELECT * FROM Usuario WHERE Correo_Electronico = @correo AND Contraseña = @contrasena');
         res.json(result.recordset[0]);
-        
     } catch (error) {
-        res.status(500).json({ message: 'Error al obtener usuario', error });
+        res.status(500).json({ message: 'Error al obtener usuario por correo y contraseña', error });
     }
 };
 
