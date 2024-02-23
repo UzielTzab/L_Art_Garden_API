@@ -11,15 +11,15 @@ const config = {
   server: "UZIEL\\SQLEXPRESS",
   user: "sa",
   password: "225699Uz",
-  database: "BD_L_ARTGARDEN",
+  database: "BD_L_ART_GARDEN",
   options: {
     encrypt: false,
     trustServerCertificate: true,
   },
 };
 
-const pool = new sql.ConnectionPool(config);
-const poolConnect = pool.connect();
+const poolExport = new sql.ConnectionPool(config);
+const poolConnect = poolExport.connect();
 
 poolConnect.then(() => {
  
@@ -27,4 +27,4 @@ poolConnect.then(() => {
   
 });
 
-export{pool};
+export{poolExport};

@@ -1,0 +1,8 @@
+// cancelacionesModel.ts
+export interface Cancelacion {
+    IDCancelacion?: number;
+    IDPedidoCancelado: number;
+    FechaHoraCancelacion: Date;
+    MotivoCancelacion: string;
+    EstadoCancelacion: string;
+}

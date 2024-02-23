@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.pool = void 0;
+exports.poolExport = void 0;
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const msnodesqlv8_1 = __importDefault(require("mssql/msnodesqlv8"));
@@ -34,15 +34,15 @@ const config = {
     server: "UZIEL\\SQLEXPRESS",
     user: "sa",
     password: "225699Uz",
-    database: "BD_L_ARTGARDEN",
+    database: "BD_L_ART_GARDEN",
     options: {
         encrypt: false,
         trustServerCertificate: true,
     },
 };
-const pool = new msnodesqlv8_1.default.ConnectionPool(config);
-exports.pool = pool;
-const poolConnect = pool.connect();
+const poolExport = new msnodesqlv8_1.default.ConnectionPool(config);
+exports.poolExport = poolExport;
+const poolConnect = poolExport.connect();
 poolConnect.then(() => {
     console.log("Conexión exitosa a SQL Server");
 });

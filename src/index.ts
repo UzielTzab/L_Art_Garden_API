@@ -1,21 +1,21 @@
 import express from 'express';
-import { pool } from './config/dbConfig';
 import cors from 'cors';
 import userRoutes from './routes/userRoutes';
-import vendedorRoutes from './routes/vendedorRoutes';
-import productosCategoriaRoutes from './routes/productosCategoriaRoutes';
-import productoRoutes from './routes/productoRoutes';
-import pedidoDevolucionRoutes from './routes/pedidoDevolucionRoutes';
-import pedidoCancelacionRoutes from './routes/pedidoCancelacionRoutes';
-import pedidoRoutes from './routes/pedidoRoutes';
-import pagoRoutes from './routes/pagoRoutes';
+import cancelacionesRoutes from './routes/cancelacionesRoutes';
+import categoriasProductosRoutes from './routes/categoriasProductosRoutes';
+import comentariosResenasProductosRoutes from './routes/comentariosResenasProductosRoutes';
+import detallesPedidoRoutes from './routes/detallesPedidoRoutes';
+import devolucionesRoutes from './routes/devolucionesRoutes';
+import direccionesEnvioRoutes from './routes/direccionesEnvioRoutes';
+import floreriasRoutes from './routes/floreriasRoutes';
 import inventarioRoutes from './routes/inventarioRoutes';
-import floreriaRoutes from './routes/floreriaRoutes';
-import devolucionRoutes from './routes/devolucionRoutes';
-import compraRoutes from './routes/compraRoutes';
-import clienteRoutes from './routes/clienteRoutes';
-import carritoRoutes from './routes/carritoRoutes';
-import cancelacionRoutes from './routes/cancelacionRoutes';
+import notificacionesRoutes from './routes/notificacionesRoutes';
+import pagosRoutes from './routes/pagosRoutes';
+import pedidosRoutes from './routes/pedidosRoutes';
+import productosRoutes from './routes/productosRoutes';
+import usuarioClienteRoutes from './routes/usuarioClienteRoutes';
+import usuarioVendedorRoutes from './routes/usuarioVendedorRoutes';
+
 
 const app = express();
 
@@ -26,20 +26,21 @@ app.use(express.urlencoded({ extended: true }));
 
 // Rutas
 app.use('/api', userRoutes);
-app.use('/api', vendedorRoutes);
-app.use('/api', productosCategoriaRoutes);
-app.use('/api', productoRoutes);
-app.use('/api', pedidoDevolucionRoutes);
-app.use('/api', pedidoCancelacionRoutes);
-app.use('/api', pedidoRoutes);
-app.use('/api', pagoRoutes);
+app.use('/api', cancelacionesRoutes);
+app.use('/api', categoriasProductosRoutes);
+app.use('/api', comentariosResenasProductosRoutes);
+app.use('/api', detallesPedidoRoutes);
+app.use('/api', devolucionesRoutes);
+app.use('/api', direccionesEnvioRoutes);
+app.use('/api', floreriasRoutes);
 app.use('/api', inventarioRoutes);
-app.use('/api', floreriaRoutes);
-app.use('/api', devolucionRoutes);
-app.use('/api', compraRoutes);
-app.use('/api', clienteRoutes);
-app.use('/api', carritoRoutes);
-app.use('/api', cancelacionRoutes);
+app.use('/api', notificacionesRoutes);
+app.use('/api', pagosRoutes);
+app.use('/api', pedidosRoutes);
+app.use('/api', productosRoutes);
+app.use('/api', usuarioClienteRoutes);
+app.use('/api', usuarioVendedorRoutes);
+;
 
 const PORT = 3004;
 

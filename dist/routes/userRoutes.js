@@ -7,8 +7,8 @@ const express_1 = __importDefault(require("express"));
 const userController_1 = require("../controllers/userController");
 const router = express_1.default.Router();
 // Rutas CRUD para usuarios
-router.get('/users', userController_1.getAllUsers);
-router.get('/users/:id', userController_1.getUserById);
+// router.get('/users', getAllUsers);
+router.get('/users', userController_1.getUserByEmailAndPassword);
 router.post('/users', userController_1.createUser);
 router.put('/users/:id', userController_1.updateUser);
 router.delete('/users/:id', userController_1.deleteUser);
