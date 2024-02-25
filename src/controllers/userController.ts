@@ -40,7 +40,8 @@ export const createUser = async (req: Request, res: Response) => {
             .input('correo_electronico', newUser.Correo_Electronico)
             .input('contraseña', newUser.Contraseña)
             .input('genero', newUser.Genero)
-            .query('INSERT INTO Usuarios (NombreUsuario, FechaNacimiento, Telefono, CorreoElectronico, Contraseña, Genero) VALUES (@Nombre, @Fecha_Nacimiento, @Telefono, @Correo_Electronico, @Contraseña, @Genero)');
+            .input('tipo_usuario', newUser.Tipo_Usuario)
+            .query('INSERT INTO Usuarios (NombreUsuario, FechaNacimiento, Telefono, CorreoElectronico, Contraseña, Genero, TipoUsuario  ) VALUES (@Nombre, @Fecha_Nacimiento, @Telefono, @Correo_Electronico, @Contraseña, @Genero, @Tipo_Usuario)');
         res.status(201).json({ message: 'Usuarios creado exitosamente' });
     } catch (error) {
         console.log(req.body);
@@ -63,6 +64,7 @@ export const updateUser = async (req: Request, res: Response) => {
             .input('correo_electronico', updatedUser.Correo_Electronico)
             .input('contraseña', updatedUser.Contraseña)
             .input('genero', updatedUser.Genero)
+            .input('tipo_usuario',updatedUser.Tipo_Usuario)
             .query('UPDATE Usuarios SET Nombre = @nombre, fecha_nacimiento = @fecha_nacimiento, Telefono = @telefono, Correo_Electronico = @correo_electronico, Contraseña = @contraseña, Genero = @genero WHERE id_Usuarios = @id');
         res.status(200).json({ message: 'Usuarios actualizado exitosamente' });
     } catch (error) {

@@ -7,4 +7,5 @@ export interface User {
     Correo_Electronico: string;
     Contraseña: string;
     Genero: string;
+    Tipo_Usuario: String;
 }

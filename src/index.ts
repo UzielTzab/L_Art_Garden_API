@@ -13,8 +13,6 @@ import notificacionesRoutes from './routes/notificacionesRoutes';
 import pagosRoutes from './routes/pagosRoutes';
 import pedidosRoutes from './routes/pedidosRoutes';
 import productosRoutes from './routes/productosRoutes';
-import usuarioClienteRoutes from './routes/usuarioClienteRoutes';
-import usuarioVendedorRoutes from './routes/usuarioVendedorRoutes';
 
 
 const app = express();
@@ -38,9 +36,7 @@ app.use('/api', notificacionesRoutes);
 app.use('/api', pagosRoutes);
 app.use('/api', pedidosRoutes);
 app.use('/api', productosRoutes);
-app.use('/api', usuarioClienteRoutes);
-app.use('/api', usuarioVendedorRoutes);
-;
+
 
 const PORT = 3004;
 
