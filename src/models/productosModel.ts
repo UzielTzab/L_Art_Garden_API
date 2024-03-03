@@ -1,4 +1,4 @@
-// productosModel.ts
+// productoModel.ts
 export interface Producto {
     IDProducto?: number;
     IDCategoria: number;
@@ -6,5 +6,5 @@ export interface Producto {
     NombreProducto: string;
     Descripcion: string;
     Precio: number;
-    Imagen?: Buffer;
+    Stock: number;
 }

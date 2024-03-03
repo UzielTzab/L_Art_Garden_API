@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { poolExport } from '../config/dbConfig';
 import { CategoriaProducto } from '../models/categoriasProductosModel';
+import sharp from 'sharp';
 
 // Obtener todas las categorías de productos
 export const getAllCategoriasProductos = async (req: Request, res: Response) => {

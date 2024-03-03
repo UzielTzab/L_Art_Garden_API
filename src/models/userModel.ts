@@ -8,4 +8,5 @@ export interface User {
     Contraseña: string;
     Genero: string;
     Tipo_Usuario: String;
+    Foto?: string; // Puedes cambiar el tipo
 }

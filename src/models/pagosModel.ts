@@ -1,9 +1,10 @@
 // pagosModel.ts
 export interface Pago {
     IDPago?: number;
+    IDUsuario: number;
     IDPedido: number;
-    MetodoPago: string;
+    IDMetodo: string;
     FechaHoraPago: Date;
-    MontoTotalPago: number;
-    EstadoPago: string;
+    MontoTotalPagado: number;
+    IDEstado: number;
 }

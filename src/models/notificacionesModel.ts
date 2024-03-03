@@ -7,3 +7,4 @@ export interface Notificacion {
     FechaHoraNotificacion: Date;
     EstadoNotificacion: string;
 }
+

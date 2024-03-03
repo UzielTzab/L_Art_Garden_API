@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { poolExport } from '../config/dbConfig';
 import { Producto } from '../models/productosModel';
+import sharp from 'sharp';
 
 // Obtener todos los productos
 export const getAllProductos = async (req: Request, res: Response) => {
@@ -24,8 +25,8 @@ export const createProducto = async (req: Request, res: Response) => {
             .input('NombreProducto', nuevoProducto.NombreProducto)
             .input('Descripcion', nuevoProducto.Descripcion)
             .input('Precio', nuevoProducto.Precio)
-            .input('Imagen', nuevoProducto.Imagen)
-            .query('INSERT INTO Productos (IDCategoria, IDInventario, NombreProducto, Descripcion, Precio, Imagen) VALUES (@IDCategoria, @IDInventario, @NombreProducto, @Descripcion, @Precio, @Imagen)');
+            .input('Stock', nuevoProducto.Stock)
+            .query('INSERT INTO Productos (IDCategoria, IDInventario, NombreProducto, Descripcion, Precio, Stock) VALUES (@IDCategoria, @IDInventario, @NombreProducto, @Descripcion, @Precio, @Stock)');
         res.status(201).json({ message: 'Producto creado exitosamente' });
     } catch (error) {
         res.status(500).json({ message: 'Error al crear producto', error });
@@ -45,8 +46,8 @@ export const updateProducto = async (req: Request, res: Response) => {
             .input('NombreProducto', updatedProducto.NombreProducto)
             .input('Descripcion', updatedProducto.Descripcion)
             .input('Precio', updatedProducto.Precio)
-            .input('Imagen', updatedProducto.Imagen)
-            .query('UPDATE Productos SET IDCategoria = @IDCategoria, IDInventario = @IDInventario, NombreProducto = @NombreProducto, Descripcion = @Descripcion, Precio = @Precio, Imagen = @Imagen WHERE IDProducto = @IDProducto');
+            .input('Stock', updatedProducto.Stock)
+            .query('UPDATE Productos SET IDCategoria = @IDCategoria, IDInventario = @IDInventario, NombreProducto = @NombreProducto, Descripcion = @Descripcion, Precio = @Precio, Stock = @Stock WHERE IDProducto = @IDProducto');
         res.json({ message: 'Producto actualizado exitosamente' });
     } catch (error) {
         res.status(500).json({ message: 'Error al actualizar producto', error });

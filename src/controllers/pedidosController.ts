@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import {poolExport} from '../config/dbConfig';
 import { Pedido } from '../models/pedidosModel';
+import sharp from 'sharp';
 
 // Obtener todos los pedidos
 export const getAllPedidos = async (req: Request, res: Response) => {
@@ -17,18 +18,17 @@ export const getAllPedidos = async (req: Request, res: Response) => {
 export const createPedido = async (req: Request, res: Response) => {
     const nuevoPedido: Pedido = req.body;
     try {
-        const pool = await poolExport.connect();
-        await pool.request()
-            .input('IDUsuarioCliente', nuevoPedido.IDUsuarioCliente)
-            .input('IDUsuarioVendedor', nuevoPedido.IDUsuarioVendedor)
+            const pool = await poolExport.connect();
+            await pool.request()
+            .input('IDUsuario', nuevoPedido.IDUsuario)
             .input('FechaHoraPedido', nuevoPedido.FechaHoraPedido)
-            .input('EstadoPedido', nuevoPedido.EstadoPedido)
-            .query('INSERT INTO Pedidos (IDUsuarioCliente, IDUsuarioVendedor, FechaHoraPedido, EstadoPedido) VALUES (@IDUsuarioCliente, @IDUsuarioVendedor, @FechaHoraPedido, @EstadoPedido)');
+            .input('IDEstado', nuevoPedido.IDEstado)
+            .query('INSERT INTO Pedidos (IDUsuario, FechaHoraPedido, IDEstado) VALUES (@IDUsuario, @FechaHoraPedido, @IDEstado)');
         res.status(201).json({ message: 'Pedido creado exitosamente' });
     } catch (error) {
         res.status(500).json({ message: 'Error al crear pedido', error });
     }
-};
+    };
 
 // Actualizar un pedido
 export const updatePedido = async (req: Request, res: Response) => {
@@ -38,16 +38,15 @@ export const updatePedido = async (req: Request, res: Response) => {
         const pool = await poolExport.connect();
         await pool.request()
             .input('IDPedido', id)
-            .input('IDUsuarioCliente', updatedPedido.IDUsuarioCliente)
-            .input('IDUsuarioVendedor', updatedPedido.IDUsuarioVendedor)
+            .input('IDUsuario', updatedPedido.IDUsuario)
             .input('FechaHoraPedido', updatedPedido.FechaHoraPedido)
-            .input('EstadoPedido', updatedPedido.EstadoPedido)
-            .query('UPDATE Pedidos SET IDUsuarioCliente = @IDUsuarioCliente, IDUsuarioVendedor = @IDUsuarioVendedor, FechaHoraPedido = @FechaHoraPedido, EstadoPedido = @EstadoPedido WHERE IDPedido = @IDPedido');
+            .input('IDEstado', updatedPedido.IDEstado)
+            .query('UPDATE Pedidos SET IDUsuario = @IDUsuario, FechaHoraPedido = @FechaHoraPedido, IDEstado = @IDEstado WHERE IDPedido = @IDPedido');
         res.json({ message: 'Pedido actualizado exitosamente' });
     } catch (error) {
         res.status(500).json({ message: 'Error al actualizar pedido', error });
     }
-};
+    };
 
 // Eliminar un pedido
 export const deletePedido = async (req: Request, res: Response) => {

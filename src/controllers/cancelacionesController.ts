@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { poolExport } from '../config/dbConfig';
 import { Cancelacion } from '../models/cancelacionesModel';
+import sharp from 'sharp';
 
 
 // Obtener todas las cancelaciones
@@ -20,11 +21,11 @@ export const createCancelacion = async (req: Request, res: Response) => {
     try {
         const poolito = await poolExport.connect();
         const result = await poolito.request()
-            .input('IDPedidoCancelado', nuevaCancelacion.IDPedidoCancelado)
-            .input('FechaHoraCancelacion', nuevaCancelacion.FechaHoraCancelacion)
-            .input('MotivoCancelacion', nuevaCancelacion.MotivoCancelacion)
-            .input('EstadoCancelacion', nuevaCancelacion.EstadoCancelacion)
-            .query('INSERT INTO Cancelaciones (IDPedidoCancelado, FechaHoraCancelacion, MotivoCancelacion, EstadoCancelacion) VALUES (@IDPedidoCancelado, @FechaHoraCancelacion, @MotivoCancelacion, @EstadoCancelacion)');
+        .input('IDPedidoCancelado', nuevaCancelacion.IDPedidoCancelado)
+        .input('FechaHoraCancelacion', nuevaCancelacion.FechaHoraCancelacion)
+        .input('MotivoCancelacion', nuevaCancelacion.MotivoCancelacion)
+        .input('IDEstado', nuevaCancelacion.IDEstado)
+        .query('INSERT INTO Cancelaciones (IDPedidoCancelado, FechaHoraCancelacion, MotivoCancelacion, IDEstado) VALUES (@IDPedidoCancelado, @FechaHoraCancelacion, @MotivoCancelacion, @IDEstado)');
         res.status(201).json({ message: 'Cancelación creada exitosamente' });
     } catch (error) {
         res.status(500).json({ message: 'Error al crear cancelación', error });
@@ -38,12 +39,12 @@ export const updateCancelacion = async (req: Request, res: Response) => {
     try {
         const poolito = await poolExport.connect();
         const result = await poolito.request()
-            .input('IDCancelacion', id)
-            .input('IDPedidoCancelado', updatedCancelacion.IDPedidoCancelado)
-            .input('FechaHoraCancelacion', updatedCancelacion.FechaHoraCancelacion)
-            .input('MotivoCancelacion', updatedCancelacion.MotivoCancelacion)
-            .input('EstadoCancelacion', updatedCancelacion.EstadoCancelacion)
-            .query('UPDATE Cancelaciones SET IDPedidoCancelado = @IDPedidoCancelado, FechaHoraCancelacion = @FechaHoraCancelacion, MotivoCancelacion = @MotivoCancelacion, EstadoCancelacion = @EstadoCancelacion WHERE IDCancelacion = @IDCancelacion');
+        .input('IDCancelacion', id)
+        .input('IDPedidoCancelado', updatedCancelacion.IDPedidoCancelado)
+        .input('FechaHoraCancelacion', updatedCancelacion.FechaHoraCancelacion)
+        .input('MotivoCancelacion', updatedCancelacion.MotivoCancelacion)
+        .input('IDEstado', updatedCancelacion.IDEstado)
+        .query('UPDATE Cancelaciones SET IDPedidoCancelado = @IDPedidoCancelado, FechaHoraCancelacion = @FechaHoraCancelacion, MotivoCancelacion = @MotivoCancelacion, IDEstado = @IDEstado WHERE IDCancelacion = @IDCancelacion');
         res.json({ message: 'Cancelación actualizada exitosamente' });
     } catch (error) {
         res.status(500).json({ message: 'Error al actualizar cancelación', error });

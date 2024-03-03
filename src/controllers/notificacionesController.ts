@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { poolExport } from '../config/dbConfig';
 import { Notificacion } from '../models/notificacionesModel';
+import sharp from 'sharp';
 
 // Obtener todas las notificaciones
 export const getAllNotificaciones = async (req: Request, res: Response) => {

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { poolExport } from '../config/dbConfig';
 import { Inventario } from '../models/inventarioModel';
+import sharp from 'sharp';
 
 // Obtener todo el inventario
 export const getAllInventario = async (req: Request, res: Response) => {
@@ -41,7 +42,7 @@ export const updateInventario = async (req: Request, res: Response) => {
     } catch (error) {
         res.status(500).json({ message: 'Error al actualizar registro de inventario', error });
     }
-};
+    };
 
 // Eliminar un registro de inventario
 export const deleteInventario = async (req: Request, res: Response) => {
@@ -55,4 +56,4 @@ export const deleteInventario = async (req: Request, res: Response) => {
     } catch (error) {
         res.status(500).json({ message: 'Error al eliminar registro de inventario', error });
     }
-};
+    };

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { poolExport } from '../config/dbConfig';
 import { User } from '../models/userModel';
-
+import sharp from 'sharp';
 // Obtener todos los Usuarioss
 export const getAllUsers = async (req: Request, res: Response) => {
     try {
@@ -13,7 +13,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
     }
 };
 
-// Obtener un Usuarios por Corro y Contraseña
+// Obtener un Usuarios por Correo y Contraseña
 export const getUserByEmailAndPassword = async (req: Request, res: Response) => {
     const { correo_electronico, contraseña } = req.query;
     try {
@@ -29,9 +29,25 @@ export const getUserByEmailAndPassword = async (req: Request, res: Response) => 
 };
 
 // Crear un nuevo Usuarios  
+
 export const createUser = async (req: Request, res: Response) => {
-    const newUser: User = req.body;
+    const newUser = req.body;
+
+    // Verificar si se ha proporcionado una foto en la solicitud
+    if (!newUser.Foto) {
+        return res.status(400).json({ message: 'No se ha proporcionado ninguna imagen.' });
+    }
+
+    // Convertir la foto de base64 a buffer
+    const fotoBuffer = Buffer.from(newUser.Foto, 'base64');
+
     try {
+        // Comprimir la imagen utilizando sharp
+        const compressedImageBuffer = await sharp(fotoBuffer)
+            .resize({ width: 800, height: 600 }) // Cambia el tamaño de la imagen si es necesario
+            .jpeg({ quality: 80 }) // Establece la calidad JPEG
+            .toBuffer();
+
         const poolito = await poolExport.connect();
         await poolito.request()
             .input('nombre', newUser.Nombre)
@@ -41,12 +57,12 @@ export const createUser = async (req: Request, res: Response) => {
             .input('contraseña', newUser.Contraseña)
             .input('genero', newUser.Genero)
             .input('tipo_usuario', newUser.Tipo_Usuario)
-            .query('INSERT INTO Usuarios (NombreUsuario, FechaNacimiento, Telefono, CorreoElectronico, Contraseña, Genero, TipoUsuario  ) VALUES (@Nombre, @Fecha_Nacimiento, @Telefono, @Correo_Electronico, @Contraseña, @Genero, @Tipo_Usuario)');
-        res.status(201).json({ message: 'Usuarios creado exitosamente' });
+            .input('foto', compressedImageBuffer) // Se pasa el buffer de la imagen comprimida
+            .query('INSERT INTO Usuarios (NombreUsuario, FechaNacimiento, Telefono, CorreoElectronico, Contraseña, Genero, TipoUsuario, Foto) VALUES (@Nombre, @Fecha_Nacimiento, @Telefono, @Correo_Electronico, @Contraseña, @Genero, @Tipo_Usuario, @Foto)');
+        res.status(201).json({ message: 'Usuario creado exitosamente' });
     } catch (error) {
-        console.log(req.body);
-        console.log("Error al crear ususario");
-        res.status(500).json({ message: 'Error al crear Usuarios', error });
+        console.log("Error al crear usuario:", error);
+        res.status(500).json({ message: 'Error al crear usuario', error });
     }
 };
 
@@ -65,7 +81,8 @@ export const updateUser = async (req: Request, res: Response) => {
             .input('contraseña', updatedUser.Contraseña)
             .input('genero', updatedUser.Genero)
             .input('tipo_usuario',updatedUser.Tipo_Usuario)
-            .query('UPDATE Usuarios SET Nombre = @nombre, fecha_nacimiento = @fecha_nacimiento, Telefono = @telefono, Correo_Electronico = @correo_electronico, Contraseña = @contraseña, Genero = @genero WHERE id_Usuarios = @id');
+            .input('Foto', updatedUser.Foto)
+            .query('UPDATE Usuarios SET Nombre = @nombre, fecha_nacimiento = @fecha_nacimiento, Telefono = @telefono, Correo_Electronico = @correo_electronico, Contraseña = @contraseña, Genero = @genero, Foto = @Foto WHERE id_Usuarios = @id');
         res.status(200).json({ message: 'Usuarios actualizado exitosamente' });
     } catch (error) {
         res.status(500).json({ message: 'Error al actualizar Usuarios', error });

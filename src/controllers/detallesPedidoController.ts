@@ -1,66 +1,66 @@
 import { Request, Response } from 'express';
 import { poolExport } from '../config/dbConfig';
-import { ComentarioResenaProducto } from '../models/comentariosResenasProductosModel';
+import { DetallePedido } from '../models/detallesPedidoModel';
+import sharp from 'sharp';
 
-// Obtener todos los comentarios y reseñas de productos
-export const getAllComentariosResenasProductos = async (req: Request, res: Response) => {
+// Obtener todos los detalles de pedido
+export const getAllDetallesPedido  = async (req: Request, res: Response) => {
     try {
         const poolito = await poolExport.connect();
-        const result = await poolito.request().query('SELECT * FROM ComentariosResenasProductos');
+        const result = await poolito.request().query('SELECT * FROM DetallesPedido');
         res.json(result.recordset);
     } catch (error) {
-        res.status(500).json({ message: 'Error al obtener comentarios y reseñas de productos', error });
+        res.status(500).json({ message: 'Error al obtener detalles de pedido', error });
     }
 };
 
-// Crear un nuevo comentario o reseña de producto
-export const createComentarioResenaProducto = async (req: Request, res: Response) => {
-    const nuevoComentarioResenaProducto: ComentarioResenaProducto = req.body;
+// Crear un nuevo detalle de pedido
+export const createDetallePedido  = async (req: Request, res: Response) => {
+    const nuevoDetallePedido: DetallePedido = req.body;
     try {
         const poolito = await poolExport.connect();
         const result = await poolito.request()
-            .input('IDUsuarioCliente', nuevoComentarioResenaProducto.IDUsuarioCliente)
-            .input('IDProducto', nuevoComentarioResenaProducto.IDProducto)
-            .input('TextoComentario', nuevoComentarioResenaProducto.TextoComentario)
-            .input('Puntuacion', nuevoComentarioResenaProducto.Puntuacion)
-            .input('FechaHoraComentario', nuevoComentarioResenaProducto.FechaHoraComentario)
-            .query('INSERT INTO ComentariosResenasProductos (IDUsuarioCliente, IDProducto, TextoComentario, Puntuacion, FechaHoraComentario) VALUES (@IDUsuarioCliente, @IDProducto, @TextoComentario, @Puntuacion, @FechaHoraComentario)');
-        res.status(201).json({ message: 'Comentario o reseña de producto creada exitosamente' });
+        .input('IDPedido', nuevoDetallePedido.IDPedido)
+        .input('IDProducto', nuevoDetallePedido.IDProducto)
+        .input('Cantidad', nuevoDetallePedido.Cantidad)
+        .input('PrecioUnitario', nuevoDetallePedido.PrecioUnitario)
+        .input('Subtotal', nuevoDetallePedido.Subtotal)
+        .query('INSERT INTO DetallesPedido (IDPedido, IDProducto, Cantidad, PrecioUnitario, Subtotal) VALUES (@IDPedido, @IDProducto, @Cantidad, @PrecioUnitario, @Subtotal)');
+        res.status(201).json({ message: 'Detalle de pedido creado exitosamente' });
     } catch (error) {
-        res.status(500).json({ message: 'Error al crear comentario o reseña de producto', error });
+        res.status(500).json({ message: 'Error al crear detalle de pedido', error });
     }
 };
 
-// Actualizar un comentario o reseña de producto
-export const updateComentarioResenaProducto = async (req: Request, res: Response) => {
+// Actualizar un detalle de pedido
+export const updateDetallePedido  = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const updatedComentarioResenaProducto: ComentarioResenaProducto = req.body;
+    const nuevoDetallePedido: DetallePedido = req.body;
     try {
         const poolito = await poolExport.connect();
         const result = await poolito.request()
-            .input('IDComentario', id)
-            .input('IDUsuarioCliente', updatedComentarioResenaProducto.IDUsuarioCliente)
-            .input('IDProducto', updatedComentarioResenaProducto.IDProducto)
-            .input('TextoComentario', updatedComentarioResenaProducto.TextoComentario)
-            .input('Puntuacion', updatedComentarioResenaProducto.Puntuacion)
-            .input('FechaHoraComentario', updatedComentarioResenaProducto.FechaHoraComentario)
-            .query('UPDATE ComentariosResenasProductos SET IDUsuarioCliente = @IDUsuarioCliente, IDProducto = @IDProducto, TextoComentario = @TextoComentario, Puntuacion = @Puntuacion, FechaHoraComentario = @FechaHoraComentario WHERE IDComentario = @IDComentario');
-        res.json({ message: 'Comentario o reseña de producto actualizada exitosamente' });
+        .input('IDPedido', nuevoDetallePedido.IDPedido)
+        .input('IDProducto', nuevoDetallePedido.IDProducto)
+        .input('Cantidad', nuevoDetallePedido.Cantidad)
+        .input('PrecioUnitario', nuevoDetallePedido.PrecioUnitario)
+        .input('Subtotal', nuevoDetallePedido.Subtotal)
+        .query('INSERT INTO DetallesPedido (IDPedido, IDProducto, Cantidad, PrecioUnitario, Subtotal) VALUES (@IDPedido, @IDProducto, @Cantidad, @PrecioUnitario, @Subtotal)');
+        res.json({ message: 'Detalle de pedido actualizado exitosamente' });
     } catch (error) {
-        res.status(500).json({ message: 'Error al actualizar comentario o reseña de producto', error });
+        res.status(500).json({ message: 'Error al actualizar detalle de pedido', error });
     }
 };
 
-// Eliminar un comentario o reseña de producto
-export const deleteComentarioResenaProducto = async (req: Request, res: Response) => {
+// Eliminar un detalle de pedido
+export const deleteDetallePedido  = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
         const poolito = await poolExport.connect();
         const result = await poolito.request()
-            .input('IDComentario', id)
-            .query('DELETE FROM ComentariosResenasProductos WHERE IDComentario = @IDComentario');
-        res.json({ message: 'Comentario o reseña de producto eliminada exitosamente' });
+            .input('IDDetalle', id)
+            .query('DELETE FROM DetallesPedido WHERE IDDetalle = @IDDetalle');
+        res.json({ message: 'Detalle de pedido eliminado exitosamente' });
     } catch (error) {
-        res.status(500).json({ message: 'Error al eliminar comentario o reseña de producto', error });
+        res.status(500).json({ message: 'Error al eliminar detalle de pedido', error });
     }
 };

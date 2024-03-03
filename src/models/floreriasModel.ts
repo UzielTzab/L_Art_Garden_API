@@ -1,7 +1,7 @@
-// floreriasModel.ts
+// floreriaModel.ts
 export interface Floreria {
     ID?: number;
-    IDUsuarioVendedor: number;
+    IDUsuario: number;
     IDInventario: number;
     NombreFloreria: string;
     Descripcion: string;

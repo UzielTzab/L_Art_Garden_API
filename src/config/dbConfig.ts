@@ -11,7 +11,7 @@ const config = {
   server: "UZIEL\\SQLEXPRESS",
   user: "sa",
   password: "225699Uz",
-  database: "BD_L_ART_GARDEN",
+  database: "BD_L_ART_GARDEN_pre",
   options: {
     encrypt: false,
     trustServerCertificate: true,

@@ -4,5 +4,5 @@ export interface Cancelacion {
     IDPedidoCancelado: number;
     FechaHoraCancelacion: Date;
     MotivoCancelacion: string;
-    EstadoCancelacion: string;
+    IDEstado: number;
 }

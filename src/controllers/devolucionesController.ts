@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { poolExport } from '../config/dbConfig';
 import { Devolucion } from '../models/devolucionesModel';
+import sharp from 'sharp';
 
 // Obtener todas las devoluciones
 export const getAllDevoluciones = async (req: Request, res: Response) => {
@@ -22,8 +23,8 @@ export const createDevolucion = async (req: Request, res: Response) => {
             .input('IDPedidoDevolucion', nuevaDevolucion.IDPedidoDevolucion)
             .input('FechaHoraDevolucion', nuevaDevolucion.FechaHoraDevolucion)
             .input('MotivoDevolucion', nuevaDevolucion.MotivoDevolucion)
-            .input('EstadoDevolucion', nuevaDevolucion.EstadoDevolucion)
-            .query('INSERT INTO Devoluciones (IDPedidoDevolucion, FechaHoraDevolucion, MotivoDevolucion, EstadoDevolucion) VALUES (@IDPedidoDevolucion, @FechaHoraDevolucion, @MotivoDevolucion, @EstadoDevolucion)');
+            .input('IDEstado', nuevaDevolucion.IDEstado)
+            .query('INSERT INTO Devoluciones (IDPedidoDevolucion, FechaHoraDevolucion, MotivoDevolucion, IDEstado) VALUES (@IDPedidoDevolucion, @FechaHoraDevolucion, @MotivoDevolucion, @IDEstado)');
         res.status(201).json({ message: 'Devolución creada exitosamente' });
     } catch (error) {
         res.status(500).json({ message: 'Error al crear devolución', error });
@@ -41,8 +42,8 @@ export const updateDevolucion = async (req: Request, res: Response) => {
             .input('IDPedidoDevolucion', updatedDevolucion.IDPedidoDevolucion)
             .input('FechaHoraDevolucion', updatedDevolucion.FechaHoraDevolucion)
             .input('MotivoDevolucion', updatedDevolucion.MotivoDevolucion)
-            .input('EstadoDevolucion', updatedDevolucion.EstadoDevolucion)
-            .query('UPDATE Devoluciones SET IDPedidoDevolucion = @IDPedidoDevolucion, FechaHoraDevolucion = @FechaHoraDevolucion, MotivoDevolucion = @MotivoDevolucion, EstadoDevolucion = @EstadoDevolucion WHERE IDDevolucion = @IDDevolucion');
+            .input('IDEstado', updatedDevolucion.IDEstado)
+            .query('UPDATE Devoluciones SET IDPedidoDevolucion = @IDPedidoDevolucion, FechaHoraDevolucion = @FechaHoraDevolucion, MotivoDevolucion = @MotivoDevolucion, IDEstado = @IDEstado WHERE IDDevolucion = @IDDevolucion');
         res.json({ message: 'Devolución actualizada exitosamente' });
     } catch (error) {
         res.status(500).json({ message: 'Error al actualizar devolución', error });

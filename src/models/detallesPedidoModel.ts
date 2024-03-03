@@ -1,9 +1,9 @@
-// comentariosResenasProductosModel.ts
-export interface ComentarioResenaProducto {
-    IDComentario?: number;
-    IDUsuarioCliente: number;
+// detallePedidoModel.ts
+export interface DetallePedido {
+    IDDetalle?: number;
+    IDPedido: number;
     IDProducto: number;
-    TextoComentario: string;
-    Puntuacion: number;
-    FechaHoraComentario: Date;
+    Cantidad: number;
+    PrecioUnitario: number;
+    Subtotal: number;
 }

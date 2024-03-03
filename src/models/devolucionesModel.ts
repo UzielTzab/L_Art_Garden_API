@@ -4,5 +4,5 @@ export interface Devolucion {
     IDPedidoDevolucion: number;
     FechaHoraDevolucion: Date;
     MotivoDevolucion: string;
-    EstadoDevolucion: string;
+    IDEstado: number;
 }

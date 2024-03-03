@@ -12,3 +12,4 @@ router.post('/cancelacion', cancelacionController_1.createCancelacion);
 router.put('/cancelacion/:id', cancelacionController_1.updateCancelacion);
 router.delete('/cancelacion/:id', cancelacionController_1.deleteCancelacion);
 exports.default = router;
+
