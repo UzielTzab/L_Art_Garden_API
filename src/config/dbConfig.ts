@@ -15,7 +15,7 @@ const config = {
   options: {
     encrypt: false,
     trustServerCertificate: false,
-    
+  
   },
 };
 
