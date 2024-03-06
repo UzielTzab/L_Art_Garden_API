@@ -7,19 +7,18 @@ import bodyParser from "body-parser";
 import sql from "mssql";
 import { env } from 'process';
 
-
 const config = {
-
-  server: "localhost",
+  server: "187.147.59.234",
   user: process.env.USER || 'sa',
   password: process.env.PASSWORD || '225699Uz',
   database: process.env.DB_DATABASE || 'BD_L_ART_GARDEN_pre',
   options: {
     encrypt: false,
     trustServerCertificate: false,
-    
+    port: 1433,
   },
 };
+
 
 const poolExport = new sql.ConnectionPool(config);
 const poolConnect = poolExport.connect();
