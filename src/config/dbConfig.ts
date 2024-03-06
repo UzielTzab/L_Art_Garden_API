@@ -8,7 +8,7 @@ import sql from "mssql";
 import { env } from 'process';
 
 const config = {
-  server: "187.147.59.234",
+  server: process.env.SERVE || 'UZIEL\\SQLEXPRESS',
   user: process.env.USER || 'sa',
   password: process.env.PASSWORD || '225699Uz',
   database: process.env.DB_DATABASE || 'BD_L_ART_GARDEN_pre',
