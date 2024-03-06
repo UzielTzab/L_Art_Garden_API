@@ -50,7 +50,7 @@ app.use('/api', pedidosRoutes);
 app.use('/api', productosRoutes);
 
 
-const PORT = 3004;
+const PORT = process.env.PORT || '4001';
 
 app.listen(PORT, () => {
     console.log(`El servidor fue lanzado en el puerto ${PORT}`);
