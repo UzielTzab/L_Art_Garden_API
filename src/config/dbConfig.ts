@@ -8,7 +8,7 @@ import sql from "mssql";
 import { env } from 'process';
 
 const config = {
-  server: process.env.SERVE || 'localhost',
+  server: process.env.SERVE || '45.167.93.66',
   user: process.env.USER || 'sa',
   password: process.env.PASSWORD || '225699Uz',
   database: process.env.DB_DATABASE || 'BD_L_ART_GARDEN_pre',
