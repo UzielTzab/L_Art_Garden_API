@@ -8,9 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.patchUser = exports.deleteUser = exports.updateUser = exports.createUser = exports.getUserByEmailAndPassword = exports.getAllUsers = void 0;
 const dbConfig_1 = require("../config/dbConfig");
+const sharp_1 = __importDefault(require("sharp"));
 // Obtener todos los Usuarioss
 const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -23,7 +27,7 @@ const getAllUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.getAllUsers = getAllUsers;
-// Obtener un Usuarios por Corro y Contraseña
+// Obtener un Usuarios por Correo y Contraseña
 const getUserByEmailAndPassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { correo_electronico, contraseña } = req.query;
     try {
@@ -42,7 +46,18 @@ exports.getUserByEmailAndPassword = getUserByEmailAndPassword;
 // Crear un nuevo Usuarios  
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const newUser = req.body;
+    // Verificar si se ha proporcionado una foto en la solicitud
+    if (!newUser.Foto) {
+        return res.status(400).json({ message: 'No se ha proporcionado ninguna imagen.' });
+    }
+    // Convertir la foto de base64 a buffer
+    const fotoBuffer = Buffer.from(newUser.Foto, 'base64');
     try {
+        // Comprimir la imagen utilizando sharp
+        const compressedImageBuffer = yield (0, sharp_1.default)(fotoBuffer)
+            .resize({ width: 800, height: 600 }) // Cambia el tamaño de la imagen si es necesario
+            .jpeg({ quality: 80 }) // Establece la calidad JPEG
+            .toBuffer();
         const poolito = yield dbConfig_1.poolExport.connect();
         yield poolito.request()
             .input('nombre', newUser.Nombre)
@@ -51,13 +66,14 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             .input('correo_electronico', newUser.Correo_Electronico)
             .input('contraseña', newUser.Contraseña)
             .input('genero', newUser.Genero)
-            .query('INSERT INTO Usuarios (NombreUsuario, FechaNacimiento, Telefono, CorreoElectronico, Contraseña, Genero) VALUES (@Nombre, @Fecha_Nacimiento, @Telefono, @Correo_Electronico, @Contraseña, @Genero)');
-        res.status(201).json({ message: 'Usuarios creado exitosamente' });
+            .input('tipo_usuario', newUser.Tipo_Usuario)
+            .input('foto', compressedImageBuffer) // Se pasa el buffer de la imagen comprimida
+            .query('INSERT INTO Usuarios (NombreUsuario, FechaNacimiento, Telefono, CorreoElectronico, Contraseña, Genero, TipoUsuario, Foto) VALUES (@Nombre, @Fecha_Nacimiento, @Telefono, @Correo_Electronico, @Contraseña, @Genero, @Tipo_Usuario, @Foto)');
+        res.status(201).json({ message: 'Usuario creado exitosamente' });
     }
     catch (error) {
-        console.log(req.body);
-        console.log("Error al crear ususario");
-        res.status(500).json({ message: 'Error al crear Usuarios', error });
+        console.log("Error al crear usuario:", error);
+        res.status(500).json({ message: 'Error al crear usuario', error });
     }
 });
 exports.createUser = createUser;
@@ -75,7 +91,9 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             .input('correo_electronico', updatedUser.Correo_Electronico)
             .input('contraseña', updatedUser.Contraseña)
             .input('genero', updatedUser.Genero)
-            .query('UPDATE Usuarios SET Nombre = @nombre, fecha_nacimiento = @fecha_nacimiento, Telefono = @telefono, Correo_Electronico = @correo_electronico, Contraseña = @contraseña, Genero = @genero WHERE id_Usuarios = @id');
+            .input('tipo_usuario', updatedUser.Tipo_Usuario)
+            .input('Foto', updatedUser.Foto)
+            .query('UPDATE Usuarios SET Nombre = @nombre, fecha_nacimiento = @fecha_nacimiento, Telefono = @telefono, Correo_Electronico = @correo_electronico, Contraseña = @contraseña, Genero = @genero, Foto = @Foto WHERE id_Usuarios = @id');
         res.status(200).json({ message: 'Usuarios actualizado exitosamente' });
     }
     catch (error) {

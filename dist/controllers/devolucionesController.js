@@ -32,8 +32,8 @@ const createDevolucion = (req, res) => __awaiter(void 0, void 0, void 0, functio
             .input('IDPedidoDevolucion', nuevaDevolucion.IDPedidoDevolucion)
             .input('FechaHoraDevolucion', nuevaDevolucion.FechaHoraDevolucion)
             .input('MotivoDevolucion', nuevaDevolucion.MotivoDevolucion)
-            .input('EstadoDevolucion', nuevaDevolucion.EstadoDevolucion)
-            .query('INSERT INTO Devoluciones (IDPedidoDevolucion, FechaHoraDevolucion, MotivoDevolucion, EstadoDevolucion) VALUES (@IDPedidoDevolucion, @FechaHoraDevolucion, @MotivoDevolucion, @EstadoDevolucion)');
+            .input('IDEstado', nuevaDevolucion.IDEstado)
+            .query('INSERT INTO Devoluciones (IDPedidoDevolucion, FechaHoraDevolucion, MotivoDevolucion, IDEstado) VALUES (@IDPedidoDevolucion, @FechaHoraDevolucion, @MotivoDevolucion, @IDEstado)');
         res.status(201).json({ message: 'Devolución creada exitosamente' });
     }
     catch (error) {
@@ -52,8 +52,8 @@ const updateDevolucion = (req, res) => __awaiter(void 0, void 0, void 0, functio
             .input('IDPedidoDevolucion', updatedDevolucion.IDPedidoDevolucion)
             .input('FechaHoraDevolucion', updatedDevolucion.FechaHoraDevolucion)
             .input('MotivoDevolucion', updatedDevolucion.MotivoDevolucion)
-            .input('EstadoDevolucion', updatedDevolucion.EstadoDevolucion)
-            .query('UPDATE Devoluciones SET IDPedidoDevolucion = @IDPedidoDevolucion, FechaHoraDevolucion = @FechaHoraDevolucion, MotivoDevolucion = @MotivoDevolucion, EstadoDevolucion = @EstadoDevolucion WHERE IDDevolucion = @IDDevolucion');
+            .input('IDEstado', updatedDevolucion.IDEstado)
+            .query('UPDATE Devoluciones SET IDPedidoDevolucion = @IDPedidoDevolucion, FechaHoraDevolucion = @FechaHoraDevolucion, MotivoDevolucion = @MotivoDevolucion, IDEstado = @IDEstado WHERE IDDevolucion = @IDDevolucion');
         res.json({ message: 'Devolución actualizada exitosamente' });
     }
     catch (error) {

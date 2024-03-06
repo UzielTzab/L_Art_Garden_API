@@ -29,18 +29,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.poolExport = void 0;
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
-const msnodesqlv8_1 = __importDefault(require("mssql/msnodesqlv8"));
+const mssql_1 = __importDefault(require("mssql"));
 const config = {
     server: "UZIEL\\SQLEXPRESS",
     user: "sa",
     password: "225699Uz",
-    database: "BD_L_ART_GARDEN",
+    database: "BD_L_ART_GARDEN_pre",
     options: {
         encrypt: false,
         trustServerCertificate: true,
     },
 };
-const poolExport = new msnodesqlv8_1.default.ConnectionPool(config);
+const poolExport = new mssql_1.default.ConnectionPool(config);
 exports.poolExport = poolExport;
 const poolConnect = poolExport.connect();
 poolConnect.then(() => {

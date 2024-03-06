@@ -14,7 +14,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
 };
 
 // Obtener un Usuarios por Correo y Contraseña
-export const getUserByEmailAndPassword = async (req: Request, res: Response) => {
+export const getUserByEmailAndPassword =     async (req: Request, res: Response) => {
     const { correo_electronico, contraseña } = req.query;
     try {
         const poolito = await poolExport.connect();

@@ -29,14 +29,14 @@ const createDireccionEnvio = (req, res) => __awaiter(void 0, void 0, void 0, fun
     try {
         const poolito = yield dbConfig_1.poolExport.connect();
         const result = yield poolito.request()
-            .input('IDUsuarioCliente', nuevaDireccionEnvio.IDUsuarioCliente)
+            .input('IDUsuario', nuevaDireccionEnvio.IDUsuario)
             .input('NombreCompletoDestinatario', nuevaDireccionEnvio.NombreCompletoDestinatario)
             .input('DireccionEnvio', nuevaDireccionEnvio.DireccionEnvio)
             .input('Ciudad', nuevaDireccionEnvio.Ciudad)
             .input('CodigoPostal', nuevaDireccionEnvio.CodigoPostal)
             .input('Pais', nuevaDireccionEnvio.Pais)
-            .input('Telefono', nuevaDireccionEnvio.Telefono)
-            .query('INSERT INTO DireccionesEnvio (IDUsuarioCliente, NombreCompletoDestinatario, DireccionEnvio, Ciudad, CodigoPostal, Pais, Telefono) VALUES (@IDUsuarioCliente, @NombreCompletoDestinatario, @DireccionEnvio, @Ciudad, @CodigoPostal, @Pais, @Telefono)');
+            .input('TelefonoContacto', nuevaDireccionEnvio.TelefonoContacto)
+            .query('INSERT INTO DireccionesEnvio (IDUsuario, NombreCompletoDestinatario, DireccionEnvio, Ciudad, CodigoPostal, Pais, TelefonoContacto) VALUES (@IDUsuario, @NombreCompletoDestinatario, @DireccionEnvio, @Ciudad, @CodigoPostal, @Pais, @TelefonoContacto)');
         res.status(201).json({ message: 'Dirección de envío creada exitosamente' });
     }
     catch (error) {
@@ -52,14 +52,14 @@ const updateDireccionEnvio = (req, res) => __awaiter(void 0, void 0, void 0, fun
         const poolito = yield dbConfig_1.poolExport.connect();
         const result = yield poolito.request()
             .input('IDDireccion', id)
-            .input('IDUsuarioCliente', updatedDireccionEnvio.IDUsuarioCliente)
+            .input('IDUsuario', updatedDireccionEnvio.IDUsuario)
             .input('NombreCompletoDestinatario', updatedDireccionEnvio.NombreCompletoDestinatario)
             .input('DireccionEnvio', updatedDireccionEnvio.DireccionEnvio)
             .input('Ciudad', updatedDireccionEnvio.Ciudad)
             .input('CodigoPostal', updatedDireccionEnvio.CodigoPostal)
             .input('Pais', updatedDireccionEnvio.Pais)
-            .input('Telefono', updatedDireccionEnvio.Telefono)
-            .query('UPDATE DireccionesEnvio SET IDUsuarioCliente = @IDUsuarioCliente, NombreCompletoDestinatario = @NombreCompletoDestinatario, DireccionEnvio = @DireccionEnvio, Ciudad = @Ciudad, CodigoPostal = @CodigoPostal, Pais = @Pais, Telefono = @Telefono WHERE IDDireccion = @IDDireccion');
+            .input('TelefonoContacto', updatedDireccionEnvio.TelefonoContacto)
+            .query('UPDATE DireccionesEnvio SET IDUsuario = @IDUsuario, NombreCompletoDestinatario = @NombreCompletoDestinatario, DireccionEnvio = @DireccionEnvio, Ciudad = @Ciudad, CodigoPostal = @CodigoPostal, Pais = @Pais, TelefonoContacto = @TelefonoContacto WHERE IDDireccion = @IDDireccion');
         res.json({ message: 'Dirección de envío actualizada exitosamente' });
     }
     catch (error) {

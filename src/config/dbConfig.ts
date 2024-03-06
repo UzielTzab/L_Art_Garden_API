@@ -4,17 +4,19 @@ dotenv.config();
 
 import express from "express";
 import bodyParser from "body-parser";
-import sql from "mssql/msnodesqlv8";
+import sql from "mssql";
+import { env } from 'process';
 
 
 const config = {
-  server: "UZIEL\\SQLEXPRESS",
-  user: "sa",
-  password: "225699Uz",
-  database: "BD_L_ART_GARDEN_pre",
+  server: process.env.SERVER || 'UZIEL\\SQLEXPRESS' ,
+  user: process.env.USER || 'sa',
+  password: process.env.PASSWORD || '225699Uz',
+  database: process.env.DB_DATABASE || 'BD_L_ART_GARDEN_pre',
   options: {
     encrypt: false,
-    trustServerCertificate: true,
+    trustServerCertificate: false,
+    
   },
 };
 

@@ -29,11 +29,10 @@ const createPedido = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     try {
         const pool = yield dbConfig_1.poolExport.connect();
         yield pool.request()
-            .input('IDUsuarioCliente', nuevoPedido.IDUsuarioCliente)
-            .input('IDUsuarioVendedor', nuevoPedido.IDUsuarioVendedor)
+            .input('IDUsuario', nuevoPedido.IDUsuario)
             .input('FechaHoraPedido', nuevoPedido.FechaHoraPedido)
-            .input('EstadoPedido', nuevoPedido.EstadoPedido)
-            .query('INSERT INTO Pedidos (IDUsuarioCliente, IDUsuarioVendedor, FechaHoraPedido, EstadoPedido) VALUES (@IDUsuarioCliente, @IDUsuarioVendedor, @FechaHoraPedido, @EstadoPedido)');
+            .input('IDEstado', nuevoPedido.IDEstado)
+            .query('INSERT INTO Pedidos (IDUsuario, FechaHoraPedido, IDEstado) VALUES (@IDUsuario, @FechaHoraPedido, @IDEstado)');
         res.status(201).json({ message: 'Pedido creado exitosamente' });
     }
     catch (error) {
@@ -49,11 +48,10 @@ const updatePedido = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const pool = yield dbConfig_1.poolExport.connect();
         yield pool.request()
             .input('IDPedido', id)
-            .input('IDUsuarioCliente', updatedPedido.IDUsuarioCliente)
-            .input('IDUsuarioVendedor', updatedPedido.IDUsuarioVendedor)
+            .input('IDUsuario', updatedPedido.IDUsuario)
             .input('FechaHoraPedido', updatedPedido.FechaHoraPedido)
-            .input('EstadoPedido', updatedPedido.EstadoPedido)
-            .query('UPDATE Pedidos SET IDUsuarioCliente = @IDUsuarioCliente, IDUsuarioVendedor = @IDUsuarioVendedor, FechaHoraPedido = @FechaHoraPedido, EstadoPedido = @EstadoPedido WHERE IDPedido = @IDPedido');
+            .input('IDEstado', updatedPedido.IDEstado)
+            .query('UPDATE Pedidos SET IDUsuario = @IDUsuario, FechaHoraPedido = @FechaHoraPedido, IDEstado = @IDEstado WHERE IDPedido = @IDPedido');
         res.json({ message: 'Pedido actualizado exitosamente' });
     }
     catch (error) {

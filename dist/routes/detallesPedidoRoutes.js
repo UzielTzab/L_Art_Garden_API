@@ -4,11 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const comentariosResenasProductosController_1 = require("../controllers/comentariosResenasProductosController");
+const detallesPedidoController_1 = require("../controllers/detallesPedidoController");
 const router = express_1.default.Router();
-// Rutas CRUD para ComentariosResenasProductos
-router.get('/comentarios-resenas-productos', comentariosResenasProductosController_1.getAllComentariosResenasProductos);
-router.post('/comentarios-resenas-productos', comentariosResenasProductosController_1.createComentarioResenaProducto);
-router.put('/comentarios-resenas-productos/:id', comentariosResenasProductosController_1.updateComentarioResenaProducto);
-router.delete('/comentarios-resenas-productos/:id', comentariosResenasProductosController_1.deleteComentarioResenaProducto);
+// Rutas CRUD para Detalles de Pedido
+router.get('/detallesPedido', detallesPedidoController_1.getAllDetallesPedido);
+router.post('/detallesPedido', detallesPedidoController_1.createDetallePedido);
+router.put('/detallesPedido/:id', detallesPedidoController_1.updateDetallePedido);
+router.delete('/detallesPedido/:id', detallesPedidoController_1.deleteDetallePedido);
 exports.default = router;

@@ -29,12 +29,13 @@ const createPago = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const poolito = yield dbConfig_1.poolExport.connect();
         const result = yield poolito.request()
+            .input('IDUsuario', nuevoPago.IDUsuario)
             .input('IDPedido', nuevoPago.IDPedido)
-            .input('MetodoPago', nuevoPago.MetodoPago)
+            .input('IDMetodo', nuevoPago.IDMetodo)
             .input('FechaHoraPago', nuevoPago.FechaHoraPago)
-            .input('MontoTotalPago', nuevoPago.MontoTotalPago)
-            .input('EstadoPago', nuevoPago.EstadoPago)
-            .query('INSERT INTO Pagos (IDPedido, MetodoPago, FechaHoraPago, MontoTotalPago, EstadoPago) VALUES (@IDPedido, @MetodoPago, @FechaHoraPago, @MontoTotalPago, @EstadoPago)');
+            .input('MontoTotalPagado', nuevoPago.MontoTotalPagado)
+            .input('IDEstado', nuevoPago.IDEstado)
+            .query('INSERT INTO Pagos (IDUsuario, IDPedido, IDMetodo, FechaHoraPago, MontoTotalPagado, IDEstado) VALUES (@IDUsuario, @IDPedido, @IDMetodo, @FechaHoraPago, @MontoTotalPagado, @IDEstado)');
         res.status(201).json({ message: 'Pago creado exitosamente' });
     }
     catch (error) {
@@ -50,12 +51,13 @@ const updatePago = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const poolito = yield dbConfig_1.poolExport.connect();
         const result = yield poolito.request()
             .input('IDPago', id)
+            .input('IDUsuario', updatedPago.IDUsuario)
             .input('IDPedido', updatedPago.IDPedido)
-            .input('MetodoPago', updatedPago.MetodoPago)
+            .input('IDMetodo', updatedPago.IDMetodo)
             .input('FechaHoraPago', updatedPago.FechaHoraPago)
-            .input('MontoTotalPago', updatedPago.MontoTotalPago)
-            .input('EstadoPago', updatedPago.EstadoPago)
-            .query('UPDATE Pagos SET IDPedido = @IDPedido, MetodoPago = @MetodoPago, FechaHoraPago = @FechaHoraPago, MontoTotalPago = @MontoTotalPago, EstadoPago = @EstadoPago WHERE IDPago = @IDPago');
+            .input('MontoTotalPagado', updatedPago.MontoTotalPagado)
+            .input('IDEstado', updatedPago.IDEstado)
+            .query('UPDATE Pagos SET IDUsuario = @IDUsuario, IDPedido = @IDPedido, IDMetodo = @IDMetodo, FechaHoraPago = @FechaHoraPago, MontoTotalPagado = @MontoTotalPagado, IDEstado = @IDEstado WHERE IDPago = @IDPago');
         res.json({ message: 'Pago actualizado exitosamente' });
     }
     catch (error) {

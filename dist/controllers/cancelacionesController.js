@@ -32,8 +32,8 @@ const createCancelacion = (req, res) => __awaiter(void 0, void 0, void 0, functi
             .input('IDPedidoCancelado', nuevaCancelacion.IDPedidoCancelado)
             .input('FechaHoraCancelacion', nuevaCancelacion.FechaHoraCancelacion)
             .input('MotivoCancelacion', nuevaCancelacion.MotivoCancelacion)
-            .input('EstadoCancelacion', nuevaCancelacion.EstadoCancelacion)
-            .query('INSERT INTO Cancelaciones (IDPedidoCancelado, FechaHoraCancelacion, MotivoCancelacion, EstadoCancelacion) VALUES (@IDPedidoCancelado, @FechaHoraCancelacion, @MotivoCancelacion, @EstadoCancelacion)');
+            .input('IDEstado', nuevaCancelacion.IDEstado)
+            .query('INSERT INTO Cancelaciones (IDPedidoCancelado, FechaHoraCancelacion, MotivoCancelacion, IDEstado) VALUES (@IDPedidoCancelado, @FechaHoraCancelacion, @MotivoCancelacion, @IDEstado)');
         res.status(201).json({ message: 'Cancelación creada exitosamente' });
     }
     catch (error) {
@@ -52,8 +52,8 @@ const updateCancelacion = (req, res) => __awaiter(void 0, void 0, void 0, functi
             .input('IDPedidoCancelado', updatedCancelacion.IDPedidoCancelado)
             .input('FechaHoraCancelacion', updatedCancelacion.FechaHoraCancelacion)
             .input('MotivoCancelacion', updatedCancelacion.MotivoCancelacion)
-            .input('EstadoCancelacion', updatedCancelacion.EstadoCancelacion)
-            .query('UPDATE Cancelaciones SET IDPedidoCancelado = @IDPedidoCancelado, FechaHoraCancelacion = @FechaHoraCancelacion, MotivoCancelacion = @MotivoCancelacion, EstadoCancelacion = @EstadoCancelacion WHERE IDCancelacion = @IDCancelacion');
+            .input('IDEstado', updatedCancelacion.IDEstado)
+            .query('UPDATE Cancelaciones SET IDPedidoCancelado = @IDPedidoCancelado, FechaHoraCancelacion = @FechaHoraCancelacion, MotivoCancelacion = @MotivoCancelacion, IDEstado = @IDEstado WHERE IDCancelacion = @IDCancelacion');
         res.json({ message: 'Cancelación actualizada exitosamente' });
     }
     catch (error) {

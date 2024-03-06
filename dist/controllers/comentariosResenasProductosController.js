@@ -29,12 +29,12 @@ const createComentarioResenaProducto = (req, res) => __awaiter(void 0, void 0, v
     try {
         const poolito = yield dbConfig_1.poolExport.connect();
         const result = yield poolito.request()
-            .input('IDUsuarioCliente', nuevoComentarioResenaProducto.IDUsuarioCliente)
+            .input('IDUsuario', nuevoComentarioResenaProducto.IDUsuario)
             .input('IDProducto', nuevoComentarioResenaProducto.IDProducto)
             .input('TextoComentario', nuevoComentarioResenaProducto.TextoComentario)
             .input('Puntuacion', nuevoComentarioResenaProducto.Puntuacion)
             .input('FechaHoraComentario', nuevoComentarioResenaProducto.FechaHoraComentario)
-            .query('INSERT INTO ComentariosResenasProductos (IDUsuarioCliente, IDProducto, TextoComentario, Puntuacion, FechaHoraComentario) VALUES (@IDUsuarioCliente, @IDProducto, @TextoComentario, @Puntuacion, @FechaHoraComentario)');
+            .query('INSERT INTO ComentariosResenasProductos (IDUsuario, IDProducto, TextoComentario, Puntuacion, FechaHoraComentario) VALUES (@IDUsuario, @IDProducto, @TextoComentario, @Puntuacion, @FechaHoraComentario)');
         res.status(201).json({ message: 'Comentario o reseña de producto creada exitosamente' });
     }
     catch (error) {
@@ -50,12 +50,12 @@ const updateComentarioResenaProducto = (req, res) => __awaiter(void 0, void 0, v
         const poolito = yield dbConfig_1.poolExport.connect();
         const result = yield poolito.request()
             .input('IDComentario', id)
-            .input('IDUsuarioCliente', updatedComentarioResenaProducto.IDUsuarioCliente)
+            .input('IDUsuario', updatedComentarioResenaProducto.IDUsuario)
             .input('IDProducto', updatedComentarioResenaProducto.IDProducto)
             .input('TextoComentario', updatedComentarioResenaProducto.TextoComentario)
             .input('Puntuacion', updatedComentarioResenaProducto.Puntuacion)
             .input('FechaHoraComentario', updatedComentarioResenaProducto.FechaHoraComentario)
-            .query('UPDATE ComentariosResenasProductos SET IDUsuarioCliente = @IDUsuarioCliente, IDProducto = @IDProducto, TextoComentario = @TextoComentario, Puntuacion = @Puntuacion, FechaHoraComentario = @FechaHoraComentario WHERE IDComentario = @IDComentario');
+            .query('UPDATE ComentariosResenasProductos SET IDUsuario = @IDUsuario, IDProducto = @IDProducto, TextoComentario = @TextoComentario, Puntuacion = @Puntuacion, FechaHoraComentario = @FechaHoraComentario WHERE IDComentario = @IDComentario');
         res.json({ message: 'Comentario o reseña de producto actualizada exitosamente' });
     }
     catch (error) {

@@ -29,7 +29,7 @@ const createFloreria = (req, res) => __awaiter(void 0, void 0, void 0, function*
     try {
         const poolExportito = yield dbConfig_1.poolExport.connect();
         const result = yield poolExportito.request()
-            .input('IDUsuarioVendedor', nuevaFloreria.IDUsuarioVendedor)
+            .input('IDUsuario', nuevaFloreria.IDUsuario)
             .input('IDInventario', nuevaFloreria.IDInventario)
             .input('NombreFloreria', nuevaFloreria.NombreFloreria)
             .input('Descripcion', nuevaFloreria.Descripcion)
@@ -38,7 +38,7 @@ const createFloreria = (req, res) => __awaiter(void 0, void 0, void 0, function*
             .input('CorreoElectronico', nuevaFloreria.CorreoElectronico)
             .input('RedesSociales', nuevaFloreria.RedesSociales)
             .input('Foto', nuevaFloreria.Foto)
-            .query('INSERT INTO Florerias (IDUsuarioVendedor, IDInventario, NombreFloreria, Descripcion, Direccion, Telefono, CorreoElectronico, RedesSociales, Foto) VALUES (@IDUsuarioVendedor, @IDInventario, @NombreFloreria, @Descripcion, @Direccion, @Telefono, @CorreoElectronico, @RedesSociales, @Foto)');
+            .query('INSERT INTO Florerias (IDUsuario, IDInventario, NombreFloreria, Descripcion, Direccion, Telefono, CorreoElectronico, RedesSociales, Foto) VALUES (@IDUsuario, @IDInventario, @NombreFloreria, @Descripcion, @Direccion, @Telefono, @CorreoElectronico, @RedesSociales, @Foto)');
         res.status(201).json({ message: 'Florería creada exitosamente' });
     }
     catch (error) {
@@ -54,7 +54,7 @@ const updateFloreria = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const poolExportito = yield dbConfig_1.poolExport.connect();
         const result = yield poolExportito.request()
             .input('ID', id)
-            .input('IDUsuarioVendedor', updatedFloreria.IDUsuarioVendedor)
+            .input('IDUsuario', updatedFloreria.IDUsuario)
             .input('IDInventario', updatedFloreria.IDInventario)
             .input('NombreFloreria', updatedFloreria.NombreFloreria)
             .input('Descripcion', updatedFloreria.Descripcion)
@@ -63,7 +63,7 @@ const updateFloreria = (req, res) => __awaiter(void 0, void 0, void 0, function*
             .input('CorreoElectronico', updatedFloreria.CorreoElectronico)
             .input('RedesSociales', updatedFloreria.RedesSociales)
             .input('Foto', updatedFloreria.Foto)
-            .query('UPDATE Florerias SET IDUsuarioVendedor = @IDUsuarioVendedor, IDInventario = @IDInventario, NombreFloreria = @NombreFloreria, Descripcion = @Descripcion, Direccion = @Direccion, Telefono = @Telefono, CorreoElectronico = @CorreoElectronico, RedesSociales = @RedesSociales, Foto = @Foto WHERE ID = @ID');
+            .query('UPDATE Florerias SET IDUsuario = @IDUsuario, IDInventario = @IDInventario, NombreFloreria = @NombreFloreria, Descripcion = @Descripcion, Direccion = @Direccion, Telefono = @Telefono, CorreoElectronico = @CorreoElectronico, RedesSociales = @RedesSociales, Foto = @Foto WHERE ID = @ID');
         res.json({ message: 'Florería actualizada exitosamente' });
     }
     catch (error) {

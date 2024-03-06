@@ -12,19 +12,23 @@ const comentariosResenasProductosRoutes_1 = __importDefault(require("./routes/co
 const detallesPedidoRoutes_1 = __importDefault(require("./routes/detallesPedidoRoutes"));
 const devolucionesRoutes_1 = __importDefault(require("./routes/devolucionesRoutes"));
 const direccionesEnvioRoutes_1 = __importDefault(require("./routes/direccionesEnvioRoutes"));
+const estadosRoutes_1 = __importDefault(require("./routes/estadosRoutes"));
 const floreriasRoutes_1 = __importDefault(require("./routes/floreriasRoutes"));
+const fotosProductosRoutes_1 = __importDefault(require("./routes/fotosProductosRoutes"));
 const inventarioRoutes_1 = __importDefault(require("./routes/inventarioRoutes"));
+const metodosPagoRoutes_1 = __importDefault(require("./routes/metodosPagoRoutes"));
 const notificacionesRoutes_1 = __importDefault(require("./routes/notificacionesRoutes"));
 const pagosRoutes_1 = __importDefault(require("./routes/pagosRoutes"));
 const pedidosRoutes_1 = __importDefault(require("./routes/pedidosRoutes"));
 const productosRoutes_1 = __importDefault(require("./routes/productosRoutes"));
-const usuarioClienteRoutes_1 = __importDefault(require("./routes/usuarioClienteRoutes"));
-const usuarioVendedorRoutes_1 = __importDefault(require("./routes/usuarioVendedorRoutes"));
+const body_parser_1 = __importDefault(require("body-parser"));
 const app = (0, express_1.default)();
 // Middleware
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
+app.use(body_parser_1.default.json({ limit: '600mb' }));
+app.use(body_parser_1.default.urlencoded({ limit: '600mb', extended: true }));
 // Rutas
 app.use('/api', userRoutes_1.default);
 app.use('/api', cancelacionesRoutes_1.default);
@@ -33,15 +37,15 @@ app.use('/api', comentariosResenasProductosRoutes_1.default);
 app.use('/api', detallesPedidoRoutes_1.default);
 app.use('/api', devolucionesRoutes_1.default);
 app.use('/api', direccionesEnvioRoutes_1.default);
+app.use('/api', estadosRoutes_1.default);
 app.use('/api', floreriasRoutes_1.default);
+app.use('/api', fotosProductosRoutes_1.default);
 app.use('/api', inventarioRoutes_1.default);
+app.use('/api', metodosPagoRoutes_1.default);
 app.use('/api', notificacionesRoutes_1.default);
 app.use('/api', pagosRoutes_1.default);
 app.use('/api', pedidosRoutes_1.default);
 app.use('/api', productosRoutes_1.default);
-app.use('/api', usuarioClienteRoutes_1.default);
-app.use('/api', usuarioVendedorRoutes_1.default);
-;
 const PORT = 3004;
 app.listen(PORT, () => {
     console.log(`El servidor fue lanzado en el puerto ${PORT}`);
