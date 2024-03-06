@@ -9,6 +9,7 @@ import { env } from 'process';
 
 
 const config = {
+  
   server: process.env.SERVER || 'UZIEL\\SQLEXPRESS' ,
   user: process.env.USER || 'sa',
   password: process.env.PASSWORD || '225699Uz',
