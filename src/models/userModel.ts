@@ -7,6 +7,6 @@ export interface User {
     Correo_Electronico: string;
     Contraseña: string;
     Genero: string;
-    Tipo_Usuario: String;
+    Tipo_Usuario: number;
     Foto?: string; // Puedes cambiar el tipo
 }

@@ -27,8 +27,8 @@ const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
-app.use(body_parser_1.default.json({ limit: '600mb' }));
-app.use(body_parser_1.default.urlencoded({ limit: '600mb', extended: true }));
+app.use(body_parser_1.default.json({ limit: '1000mb' }));
+app.use(body_parser_1.default.urlencoded({ limit: '1000mb', extended: true }));
 // Rutas
 app.use('/api', userRoutes_1.default);
 app.use('/api', cancelacionesRoutes_1.default);
@@ -46,7 +46,7 @@ app.use('/api', notificacionesRoutes_1.default);
 app.use('/api', pagosRoutes_1.default);
 app.use('/api', pedidosRoutes_1.default);
 app.use('/api', productosRoutes_1.default);
-const PORT = 3004;
+const PORT = process.env.PORT || '4001';
 app.listen(PORT, () => {
-    console.log(`El servidor fue lanzado en el puerto ${PORT}`);
+    console.log(`Hola soy Uziel, El servidor fue lanzado en el puerto ${PORT}`);
 });

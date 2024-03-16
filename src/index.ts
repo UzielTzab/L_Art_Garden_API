@@ -28,8 +28,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.json({ limit: '600mb' }));
-app.use(bodyParser.urlencoded({ limit: '600mb', extended: true }));
+app.use(bodyParser.json({ limit: '1000mb' }));
+app.use(bodyParser.urlencoded({ limit: '1000mb', extended: true }));
 
 // Rutas
 app.use('/api', userRoutes);

@@ -6,9 +6,10 @@ import sharp from 'sharp';
 // Obtener todas las florerías
 export const getAllFlorerias = async (req: Request, res: Response) => {
     try {
-        const poolExportito = await poolExport.connect();
-        const result = await poolExportito.request().query('SELECT * FROM Florerias');
+        const poolito = await poolExport.connect();
+        const result = await poolito.request().query('SELECT * FROM Florerias');
         res.json(result.recordset);
+        
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener florerías', error });
     }
@@ -18,8 +19,8 @@ export const getAllFlorerias = async (req: Request, res: Response) => {
 export const createFloreria = async (req: Request, res: Response) => {
     const nuevaFloreria: Floreria = req.body;
     try {
-        const poolExportito = await poolExport.connect();
-        const result = await poolExportito.request()
+        const poolito = await poolExport.connect();
+        const result = await poolito.request()
             .input('IDUsuario', nuevaFloreria.IDUsuario)
             .input('IDInventario', nuevaFloreria.IDInventario)
             .input('NombreFloreria', nuevaFloreria.NombreFloreria)
@@ -41,8 +42,8 @@ export const updateFloreria = async (req: Request, res: Response) => {
     const { id } = req.params;
     const updatedFloreria: Floreria = req.body;
     try {
-        const poolExportito = await poolExport.connect();
-        const result = await poolExportito.request()
+        const poolito = await poolExport.connect();
+        const result = await poolito.request()
             .input('ID', id)
             .input('IDUsuario', updatedFloreria.IDUsuario)
             .input('IDInventario', updatedFloreria.IDInventario)
@@ -64,8 +65,8 @@ export const updateFloreria = async (req: Request, res: Response) => {
 export const deleteFloreria = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-        const poolExportito = await poolExport.connect();
-        const result = await poolExportito.request()
+        const poolito = await poolExport.connect();
+        const result = await poolito.request()
             .input('ID', id)
             .query('DELETE FROM Florerias WHERE ID = @ID');
         res.json({ message: 'Florería eliminada exitosamente' });

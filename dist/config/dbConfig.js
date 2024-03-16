@@ -31,13 +31,13 @@ const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const mssql_1 = __importDefault(require("mssql"));
 const config = {
-    server: "UZIEL\\SQLEXPRESS",
-    user: "sa",
-    password: "225699Uz",
-    database: "BD_L_ART_GARDEN_pre",
+    server: process.env.SERVE || 'localhost',
+    user: process.env.USER || 'sa',
+    password: process.env.PASSWORD || '225699Uz',
+    database: process.env.DB_DATABASE || 'BD_L_ART_GARDEN',
     options: {
         encrypt: false,
-        trustServerCertificate: true,
+        trustServerCertificate: false,
     },
 };
 const poolExport = new mssql_1.default.ConnectionPool(config);

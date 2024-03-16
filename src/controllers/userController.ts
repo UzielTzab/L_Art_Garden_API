@@ -32,39 +32,57 @@ export const getUserByEmailAndPassword =     async (req: Request, res: Response)
 
 export const createUser = async (req: Request, res: Response) => {
     const newUser = req.body;
+    console.log('Datos recibidos del cliente:', newUser);
 
     // Verificar si se ha proporcionado una foto en la solicitud
     if (!newUser.Foto) {
-        return res.status(400).json({ message: 'No se ha proporcionado ninguna imagen.' });
-    }
-
-    // Convertir la foto de base64 a buffer
-    const fotoBuffer = Buffer.from(newUser.Foto, 'base64');
-
-    try {
-        // Comprimir la imagen utilizando sharp
-        const compressedImageBuffer = await sharp(fotoBuffer)
-            .resize({ width: 800, height: 600 }) // Cambia el tamaño de la imagen si es necesario
-            .jpeg({ quality: 80 }) // Establece la calidad JPEG
-            .toBuffer();
-
-        const poolito = await poolExport.connect();
-        await poolito.request()
-            .input('nombre', newUser.Nombre)
-            .input('fecha_nacimiento', newUser.Fecha_Nacimiento)
-            .input('telefono', newUser.Telefono)
-            .input('correo_electronico', newUser.Correo_Electronico)
-            .input('contraseña', newUser.Contraseña)
-            .input('genero', newUser.Genero)
-            .input('tipo_usuario', newUser.Tipo_Usuario)
-            .input('foto', compressedImageBuffer) // Se pasa el buffer de la imagen comprimida
-            .query('INSERT INTO Usuarios (NombreUsuario, FechaNacimiento, Telefono, CorreoElectronico, Contraseña, Genero, TipoUsuario, Foto) VALUES (@Nombre, @Fecha_Nacimiento, @Telefono, @Correo_Electronico, @Contraseña, @Genero, @Tipo_Usuario, @Foto)');
-        res.status(201).json({ message: 'Usuario creado exitosamente' });
-    } catch (error) {
-        console.log("Error al crear usuario:", error);
-        res.status(500).json({ message: 'Error al crear usuario', error });
+        newUser.Foto = null;
+        try {
+            const poolito = await poolExport.connect();
+            await poolito.request()
+                .input('Nombre', newUser.Nombre)
+                .input('FechaNacimiento', newUser.FechaNacimiento)
+                .input('telefono', newUser.Telefono)
+                .input('correoelectronico', newUser.CorreoElectronico)
+                .input('contraseña', newUser.Contraseña)
+                .input('genero', newUser.Genero)
+                .input('tipousuarioid', newUser.TipoUsuarioID)
+                .query('INSERT INTO Usuarios (NombreUsuario, FechaNacimiento, Telefono, CorreoElectronico, Contraseña, Genero, TipoUsuarioID) VALUES (@Nombre, @FechaNacimiento, @Telefono, @CorreoElectronico, @Contraseña, @Genero, @TipoUsuarioID)');
+            return res.status(201).json({ message: 'Usuario creado exitosamente' });
+        } catch (error) {
+            console.log(`Error al crear usuario: ${error}`);
+            return res.status(500).json({ message: 'Error al crear usuario', error });
+        }
+    } else {
+        // Convertir la foto de base64 a buffer
+        const fotoBuffer = Buffer.from(newUser.Foto, 'base64');
+        console.log('Datos binarios de la img comprimida:', fotoBuffer);
+        try {
+            // Comprimir la imagen utilizando sharp
+            const compressedImageBuffer = await sharp(fotoBuffer)
+                .resize({ width: 400, height: 400 }) // Cambia el tamaño de la imagen si es necesario
+                .jpeg({ quality: 30 }) // Establece la calidad JPEG
+                .toBuffer();
+                
+            const poolito = await poolExport.connect();
+            await poolito.request()
+                .input('nombre', newUser.Nombre)
+                .input('fecha_nacimiento', newUser.Fecha_Nacimiento)
+                .input('telefono', newUser.Telefono)
+                .input('correo_electronico', newUser.Correo_Electronico)
+                .input('contraseña', newUser.Contraseña)
+                .input('genero', newUser.Genero)
+                .input('tipo_usuario', newUser.Tipo_Usuario)
+                .input('foto', compressedImageBuffer) // Se pasa el buffer de la imagen comprimida
+                .query('INSERT INTO Usuarios (NombreUsuario, FechaNacimiento, Telefono, CorreoElectronico, Contraseña, Genero, TipoUsuario, Foto) VALUES (@Nombre, @Fecha_Nacimiento, @Telefono, @Correo_Electronico, @Contraseña, @Genero, @Tipo_Usuario, @Foto)');
+            return res.status(201).json({ message: 'Usuario creado exitosamente' });
+        } catch (error) {
+            console.log("Error al crear usuario:", error);
+            return res.status(500).json({ message: 'Error al crear usuario', error });
+        }   
     }
 };
+
 
 // Actualizar un Usuarios
 export const updateUser = async (req: Request, res: Response) => {
